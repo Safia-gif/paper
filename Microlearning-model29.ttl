@@ -1,0 +1,1303 @@
+@prefix : <http://microlearning-model.edu/microlearning-model/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix ls: <http://linkedscience.org/teach/ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix esco: <http://data.europa.eu/esco/model#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix km4c: <http://www.disit.org/km4city/schema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix aiiso: <http://purl.org/vocab/aiiso/schema#> .
+@prefix ontog: <http://ontogamif.org/ontology/core#> .
+@prefix aktors: <http://www.aktors.org/ontology/portal#> .
+@prefix schema: <http://schema.org/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix courseware: <http://courseware.rkbexplorer.com/ontologies/courseware#> .
+@base <http://microlearning-model.edu/microlearning-model/> .
+
+<http://microlearning-model.edu/microlearning-model> rdf:type owl:Ontology ;
+                                                      :contactInfo "nahhas.safia@gmail.com" ;
+                                                      :language "en" ;
+                                                      dc:created "October 2025" ;
+                                                      dc:description "The microlearning ontology aims to provide a model that assists microlearning designers in building or refining learning materials based on the principles of microlearning, while also connecting these materials to real-world competencies, smart city sectors, and other related resources." ;
+                                                      rdfs:label "Microlearning model ontology" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://microlearning-model.edu/microlearning-model/contactInfo
+:contactInfo rdf:type owl:AnnotationProperty .
+
+
+###  http://microlearning-model.edu/microlearning-model/language
+:language rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/created
+dc:created rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/description
+dc:description rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://microlearning-model.edu/microlearning-model/LearningResourceTypeEnum
+:LearningResourceTypeEnum rdf:type rdfs:Datatype ;
+                          rdfs:comment "A closed set of allowed string values for schema:learningResourceType to ensure consistency and prevent misspellings." ;
+                          owl:equivalentClass [ rdf:type rdfs:Datatype ;
+                                                owl:oneOf [ rdf:type rdf:List ;
+                                                            rdf:first "Audio" ;
+                                                            rdf:rest [ rdf:type rdf:List ;
+                                                                       rdf:first "Flash card" ;
+                                                                       rdf:rest [ rdf:type rdf:List ;
+                                                                                  rdf:first "Infographic" ;
+                                                                                  rdf:rest [ rdf:type rdf:List ;
+                                                                                             rdf:first "InteractiveGraphic" ;
+                                                                                             rdf:rest [ rdf:type rdf:List ;
+                                                                                                        rdf:first "Mix" ;
+                                                                                                        rdf:rest [ rdf:type rdf:List ;
+                                                                                                                   rdf:first "Quiz" ;
+                                                                                                                   rdf:rest [ rdf:type rdf:List ;
+                                                                                                                              rdf:first "Simulation" ;
+                                                                                                                              rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                         rdf:first "Text document" ;
+                                                                                                                                         rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                    rdf:first "Video recording" ;
+                                                                                                                                                    rdf:rest rdf:nil
+                                                                                                                                                  ]
+                                                                                                                                       ]
+                                                                                                                            ]
+                                                                                                                 ]
+                                                                                                      ]
+                                                                                           ]
+                                                                                ]
+                                                                     ]
+                                                          ]
+                                              ] .
+
+
+###  http://microlearning-model.edu/microlearning-model/maxDuration15m
+:maxDuration15m rdf:type rdfs:Datatype ;
+                owl:equivalentClass [ rdf:type rdfs:Datatype ;
+                                      owl:onDatatype xsd:integer ;
+                                      owl:withRestrictions ( [ xsd:maxInclusive 15
+                                                             ]
+                                                           )
+                                    ] .
+
+
+###  http://microlearning-model.edu/microlearning-model/maxWordCount500
+:maxWordCount500 rdf:type rdfs:Datatype ;
+                 owl:equivalentClass [ rdf:type rdfs:Datatype ;
+                                       owl:onDatatype xsd:integer ;
+                                       owl:withRestrictions ( [ xsd:maxInclusive 500
+                                                              ]
+                                                            )
+                                     ] .
+
+
+###  http://www.w3.org/2000/01/rdf-schema#Resource
+rdfs:Resource rdf:type rdfs:Datatype .
+
+
+###  http://www.w3.org/2001/XMLSchema#duration
+xsd:duration rdf:type rdfs:Datatype .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://microlearning-model.edu/microlearning-model/aimsForDynamic
+:aimsForDynamic rdf:type owl:ObjectProperty ;
+                rdfs:domain :microlearning ;
+                rdfs:range ontog:GameDynamic ;
+                rdfs:comment "Links the microlearning unit to the specific psychological or behavioral outcome (dynamic) it is designed to elicit, such as Status, Community, or Achievement." ;
+                rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+                rdfs:label "aimsForDynamic" .
+
+
+###  http://microlearning-model.edu/microlearning-model/hasAssessmentMethod
+:hasAssessmentMethod rdf:type owl:ObjectProperty ;
+                     rdfs:domain :microlearning ;
+                     rdfs:range courseware:Assessment-Method ;
+                     rdfs:comment "to state the assessment methods of microlearning" ;
+                     rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+                     rdfs:label "hasAssessmentMethod" .
+
+
+###  http://microlearning-model.edu/microlearning-model/hasDifficultyLevel
+:hasDifficultyLevel rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf <http://www.imsglobal.org/xsd/imsmd_v1p2.xsd#educational.difficulty> ;
+                    rdfs:domain :microlearning ;
+                    rdfs:range :DifficultyLevel ;
+                    rdfs:comment "To represent the formal difficulty level of the microlearning, linking it to a controlled instance (e.g., 'easy', 'medium') derived from the LOM standard's educational difficulty." ;
+                    rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+                    rdfs:label "hasDifficultyLevel" .
+
+
+###  http://microlearning-model.edu/microlearning-model/hasGamificationElement
+:hasGamificationElement rdf:type owl:ObjectProperty ;
+                        rdfs:domain :microlearning ;
+                        rdfs:range ontog:GameDesignElement ;
+                        rdfs:comment "Links the microlearning unit to a specific gamification element (e.g., Badge, Point, Leaderboard) from the OntoGamif ontology." ;
+                        rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+                        rdfs:label "hasGamificationElement" .
+
+
+###  http://microlearning-model.edu/microlearning-model/hasInteractionType
+:hasInteractionType rdf:type owl:ObjectProperty ;
+                    rdfs:domain :microlearning ;
+                    rdfs:range courseware:Student-Interaction-Type ;
+                    rdfs:comment "to clarify how the learner can engage in this microlearning." ;
+                    rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+                    rdfs:label "hasInteractionType" .
+
+
+###  http://microlearning-model.edu/microlearning-model/hasLearningMode
+:hasLearningMode rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf schema:courseMode ;
+                 rdfs:domain :microlearning ;
+                 rdfs:range :LearningModeEnum ;
+                 rdfs:comment "the learning mode of this microlearning, restricted to Online, Blended, or FaceToFace." ;
+                 rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+                 rdfs:label "hasLearningMode" .
+
+
+###  http://microlearning-model.edu/microlearning-model/hasLearningStyle
+:hasLearningStyle rdf:type owl:ObjectProperty ;
+                  rdfs:domain schema:EducationalAudience ;
+                  rdfs:range :LearningStyle ;
+                  rdfs:comment "A custom property linking the audience to their preferred learning style (e.g., Visual, Kinesthetic)." ;
+                  rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+                  rdfs:label "hasLearningStyle" .
+
+
+###  http://microlearning-model.edu/microlearning-model/hasMaterial
+:hasMaterial rdf:type owl:ObjectProperty ;
+             rdfs:domain :microlearning ;
+             rdfs:range ls:Material ;
+             rdfs:comment "to link the microlearning with its related materials." ;
+             rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+             rdfs:label "hasMaterial" .
+
+
+###  http://microlearning-model.edu/microlearning-model/hasObjective
+:hasObjective rdf:type owl:ObjectProperty ;
+              rdfs:domain :microlearning ;
+              rdfs:range :Objective ;
+              rdfs:comment "state the objective of the microlearning" ;
+              rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+              rdfs:label "hasObjective" .
+
+
+###  http://microlearning-model.edu/microlearning-model/hasRelatedCitySector
+:hasRelatedCitySector rdf:type owl:ObjectProperty ;
+                      rdfs:domain :microlearning ;
+                      rdfs:range :CitySector ;
+                      rdfs:comment "reprsent the real domin in cities that are related to this microlearning" ;
+                      rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+                      rdfs:label "hasRelatedCitySector" .
+
+
+###  http://microlearning-model.edu/microlearning-model/hasRelatedOccupation
+:hasRelatedOccupation rdf:type owl:ObjectProperty ;
+                      rdfs:domain :microlearning ;
+                      rdfs:range esco:Occupation ;
+                      rdfs:comment "to connect between microlearning and its related occupation" ;
+                      rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+                      rdfs:label "hasRelatedOccupation" .
+
+
+###  http://microlearning-model.edu/microlearning-model/hasSkill
+:hasSkill rdf:type owl:ObjectProperty ;
+          rdfs:domain :microlearning ;
+          rdfs:range esco:Skill ;
+          rdfs:comment "to link the microlearning to skills that the learner will gain after finishing it." ;
+          rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+          rdfs:label "hasSkill" .
+
+
+###  http://microlearning-model.edu/microlearning-model/hasSubject
+:hasSubject rdf:type owl:ObjectProperty ;
+            rdfs:domain :microlearning ;
+            rdfs:range aiiso:Subject ;
+            rdfs:comment "to provide the subject of the microlearning" ;
+            rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+            rdfs:label "hasSubject" .
+
+
+###  http://microlearning-model.edu/microlearning-model/isModuleOfSeries
+:isModuleOfSeries rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf dcterms:isPartOf ,
+                                     schema:isPartOf ;
+                  rdfs:domain :microlearning ;
+                  rdfs:range :MicrolearningSeries ;
+                  rdfs:comment "To link a microlearning module to the overarching Microlearning Series or Library it belongs to." ;
+                  rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+                  rdfs:label "isModuleOfSeries" .
+
+
+###  http://microlearning-model.edu/microlearning-model/isMotivatedByDynamic
+:isMotivatedByDynamic rdf:type owl:ObjectProperty ;
+                      rdfs:domain schema:EducationalAudience ;
+                      rdfs:range ontog:GameDynamic ;
+                      rdfs:comment "Links the Educational Audience to the specific Game Dynamics (e.g., Status, Achievement, Community) that serve as the primary motivational drive for this learner type." ;
+                      rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+                      rdfs:label "isMotivatedByDynamic" .
+
+
+###  http://microlearning-model.edu/microlearning-model/isPartofGamificationSystem
+:isPartofGamificationSystem rdf:type owl:ObjectProperty ;
+                            rdfs:domain :microlearning ;
+                            rdfs:range ontog:GamificationSystem ;
+                            rdfs:comment "Links the microlearning module to the overarching gamification system it belongs to (the 'game')." ;
+                            rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+                            rdfs:label "isPartofGamificationSystem" .
+
+
+###  http://microlearning-model.edu/microlearning-model/isProvidedBy
+:isProvidedBy rdf:type owl:ObjectProperty ;
+              owl:inverseOf :provides ;
+              rdfs:domain :microlearning ;
+              rdfs:range :Creator ;
+              rdfs:comment "to state that this microlearning is provided by this creator" ;
+              rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+              rdfs:label "isProvidedBy" .
+
+
+###  http://microlearning-model.edu/microlearning-model/prefersGameElement
+:prefersGameElement rdf:type owl:ObjectProperty ;
+                    rdfs:domain schema:EducationalAudience ;
+                    rdfs:range ontog:GameDesignElement ;
+                    rdfs:comment "Links the Educational Audience to the specific Game Design Elements (e.g., Badges, Points) that are most preferred or effective for this type of learner profile." ;
+                    rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+                    rdfs:label "prefersGameElement" .
+
+
+###  http://microlearning-model.edu/microlearning-model/prefersInteractionType
+:prefersInteractionType rdf:type owl:ObjectProperty ;
+                        rdfs:domain schema:EducationalAudience ;
+                        rdfs:range courseware:Student-Interaction-Type ;
+                        rdfs:comment "Defines the preferred method of engagement (e.g., \"Active interaction\" or \"Expose\")." ;
+                        rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+                        rdfs:label "prefersInteractionType" .
+
+
+###  http://microlearning-model.edu/microlearning-model/provides
+:provides rdf:type owl:ObjectProperty ;
+          rdfs:domain :Creator ;
+          rdfs:range :microlearning ;
+          rdfs:comment "to state who provides the microlearning." ;
+          rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+          rdfs:label "provides" .
+
+
+###  http://microlearning-model.edu/microlearning-model/requiresLearningTools
+:requiresLearningTools rdf:type owl:ObjectProperty ;
+                       rdfs:domain :microlearning ;
+                       rdfs:range aktors:Technology ;
+                       rdfs:comment "to link between the microlearning and the required technologies to take it suh as mobiles, tablets and so on." ;
+                       rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+                       rdfs:label "requiresLearningTools" .
+
+
+###  http://microlearning-model.edu/microlearning-model/respondsWellToMechanic
+:respondsWellToMechanic rdf:type owl:ObjectProperty ;
+                        rdfs:domain schema:EducationalAudience ;
+                        rdfs:range ontog:GameMechanic ;
+                        rdfs:comment "Links the Educational Audience to the specific Game Mechanics (e.g., Competition, Cooperation) that elicit the most positive engagement for this learner profile." ;
+                        rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+                        rdfs:label "respondsWellToMechanic" .
+
+
+###  http://purl.org/dc/terms/isPartOf
+dcterms:isPartOf rdf:type owl:ObjectProperty .
+
+
+###  http://schema.org/audience
+schema:audience rdf:type owl:ObjectProperty ;
+                rdfs:domain :microlearning ;
+                rdfs:range schema:Audience ,
+                           schema:EducationalAudience ;
+                rdfs:comment "An intended audience, i.e. a group for whom something was created." ;
+                rdfs:isDefinedBy "http://schema.org/" ;
+                rdfs:label "audience" .
+
+
+###  http://schema.org/courseMode
+schema:courseMode rdf:type owl:ObjectProperty ;
+                  rdfs:domain :microlearning ;
+                  rdfs:range :LearningModeEnum ;
+                  rdfs:comment "The delivery method of the microlearning, restricted to Online, Blended, or FaceToFace." ;
+                  rdfs:isDefinedBy "http://schema.org/" ;
+                  rdfs:label "courseMode" .
+
+
+###  http://schema.org/interest
+schema:interest rdf:type owl:ObjectProperty ;
+                rdfs:domain schema:EducationalAudience ;
+                rdfs:range skos:Concept ;
+                rdfs:comment "The topic or subject matter in which the target audience is interested." ;
+                rdfs:isDefinedBy "http://schema.org/" ;
+                rdfs:label "interest" .
+
+
+###  http://schema.org/isPartOf
+schema:isPartOf rdf:type owl:ObjectProperty .
+
+
+###  http://schema.org/seeks
+schema:seeks rdf:type owl:ObjectProperty ;
+             rdfs:domain schema:EducationalAudience ;
+             rdfs:range schema:Demand ;
+             rdfs:comment "Links a party (the audience/learner) to a formal expression of what they are trying to obtain, acquire, or purchase." ;
+             rdfs:isDefinedBy "http://schema.org/" ;
+             rdfs:label "seeks" .
+
+
+###  http://www.imsglobal.org/xsd/imsmd_v1p2.xsd#educational.difficulty
+<http://www.imsglobal.org/xsd/imsmd_v1p2.xsd#educational.difficulty> rdf:type owl:ObjectProperty ;
+                                                                     rdfs:isDefinedBy "http://www.imsglobal.org/" ;
+                                                                     rdfs:label "difficulty" .
+
+
+###  http://www.w3.org/2004/02/skos/core#related
+skos:related rdf:type owl:ObjectProperty ;
+             rdfs:domain :microlearning ;
+             rdfs:range aiiso:Programme ;
+             rdfs:comment "is used to assert an associative link between microlearning and a study program." ;
+             rdfs:isDefinedBy "http://www.w3.org/2004/02/skos/" ;
+             rdfs:label "skos:related" .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://ltsc.ieee.org/vcard/ns#typicalLearningTime
+<http://ltsc.ieee.org/vcard/ns#typicalLearningTime> rdf:type owl:DatatypeProperty ;
+                                                    rdfs:comment "Approximate or typical time it takes to work with this resource." ;
+                                                    rdfs:isDefinedBy "http://ltsc.ieee.org/" ;
+                                                    rdfs:label "typicalLearningTime" .
+
+
+###  http://microlearning-model.edu/microlearning-model/durationInMinutes
+:durationInMinutes rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf schema:duration ;
+                   rdfs:domain :microlearning ;
+                   rdfs:range :maxDuration15m ;
+                   rdfs:comment "to represent the lenght of microlearning (max 15 minutes)" ;
+                   rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+                   rdfs:label "durationInMinutes" .
+
+
+###  http://microlearning-model.edu/microlearning-model/hasVisualElements
+:hasVisualElements rdf:type owl:DatatypeProperty ;
+                   rdfs:domain :microlearning ;
+                   rdfs:range xsd:boolean ;
+                   rdfs:comment "A boolean flag (True/False) indicating if the microlearning resource is primarily visual. This includes static graphics (e.g., Infographics), interactive visuals (e.g., Simulations), and time-based visual media (e.g., Video recordings). It is intended for simple filtering and should be used alongside 'schema:learningResourceType' for specific format detail." ;
+                   rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+                   rdfs:label "hasVisualElements" .
+
+
+###  http://microlearning-model.edu/microlearning-model/multisensoryResource
+:multisensoryResource rdf:type owl:DatatypeProperty ;
+                      rdfs:domain :microlearning ;
+                      rdfs:range xsd:boolean ;
+                      rdfs:comment "to emphisis on the importance of having multisensory resource by contaning mix content of visual, audio, text and so on" ;
+                      rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+                      rdfs:label "multisensoryResource" .
+
+
+###  http://microlearning-model.edu/microlearning-model/prefersResourceType
+:prefersResourceType rdf:type owl:DatatypeProperty ;
+                     rdfs:domain schema:EducationalAudience ;
+                     rdfs:range :LearningResourceTypeEnum ;
+                     rdfs:comment "States the Educational Audience's preferred content format (e.g., \"Video recording\" or \"Infographic\")." ;
+                     rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+                     rdfs:label "prefersResourceType" .
+
+
+###  http://microlearning-model.edu/microlearning-model/textPrerequisites
+:textPrerequisites rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf schema:coursePrerequisites ;
+                   rdfs:domain :microlearning ;
+                   rdfs:range xsd:string ;
+                   rdfs:comment "to state any knowledge or skills needed before engaging in this microlearning." ;
+                   rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+                   rdfs:label "textPrerequisites" .
+
+
+###  http://microlearning-model.edu/microlearning-model/typicalLearningTime
+:typicalLearningTime rdf:type owl:DatatypeProperty ;
+                     rdfs:subPropertyOf <http://ltsc.ieee.org/vcard/ns#typicalLearningTime> ;
+                     rdfs:domain :microlearning ;
+                     rdfs:range xsd:duration ;
+                     rdfs:comment "The estimated time a learner needs to spend to effectively study, absorb, and process the content of this microlearning unit, which often exceeds the resource's actual duration (e.g., 5-minute video + 55 minutes of study)." ;
+                     rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+                     rdfs:label "typicalLearningTime" .
+
+
+###  http://microlearning-model.edu/microlearning-model/uriPrerequisites
+:uriPrerequisites rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf schema:coursePrerequisites ;
+                  rdfs:domain :microlearning ;
+                  rdfs:range xsd:anyURI ;
+                  rdfs:comment "to state any other prerequisites resources." ;
+                  rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+                  rdfs:label "uriPrerequisites" .
+
+
+###  http://microlearning-model.edu/microlearning-model/wordCount
+:wordCount rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf schema:wordCount ;
+           rdfs:domain :microlearning ;
+           rdfs:range :maxWordCount500 ;
+           rdfs:comment "to represent number of words in this microlearning (max 500)" ;
+           rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+           rdfs:label "wordCount" .
+
+
+###  http://purl.org/dc/elements/1.1/language
+dc:language rdf:type owl:DatatypeProperty ;
+            rdfs:domain :microlearning ;
+            rdfs:range xsd:language ;
+            rdfs:comment "to represent the language of microlearning" ;
+            rdfs:isDefinedBy "http://purl.org/dc/terms/" ;
+            rdfs:label "language" .
+
+
+###  http://purl.org/dc/elements/1.1/title
+dc:title rdf:type owl:DatatypeProperty ;
+         rdfs:domain [ rdf:type owl:Class ;
+                       owl:unionOf ( courseware:Assessment-Method
+                                     courseware:Student-Interaction-Type
+                                     esco:Occupation
+                                     esco:Skill
+                                     :Creator
+                                     :MicrolearningSeries
+                                     :Objective
+                                     :microlearning
+                                     aiiso:Programme
+                                     aiiso:Subject
+                                     aktors:Technology
+                                   )
+                     ] ;
+         rdfs:range xsd:string ;
+         rdfs:comment "for giving the main title" ;
+         rdfs:isDefinedBy "http://purl.org/dc/terms/" ;
+         rdfs:label "title" .
+
+
+###  http://purl.org/dc/terms/description
+dcterms:description rdf:type owl:DatatypeProperty ;
+                    rdfs:domain [ rdf:type owl:Class ;
+                                  owl:unionOf ( :Objective
+                                                :microlearning
+                                              )
+                                ] ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "to give more details and descriptions" ;
+                    rdfs:isDefinedBy "http://purl.org/dc/terms/" ;
+                    rdfs:label "description" .
+
+
+###  http://purl.org/dc/terms/license
+dcterms:license rdf:type owl:DatatypeProperty ;
+                rdfs:domain :microlearning ;
+                rdfs:range rdfs:Resource ;
+                rdfs:comment "A legal document or statement giving official permission to do something with the microlearning resource. Recommended practice is to use a URI." ;
+                rdfs:isDefinedBy "http://purl.org/dc/terms/" ;
+                rdfs:label "license" .
+
+
+###  http://schema.org/coursePrerequisites
+schema:coursePrerequisites rdf:type owl:DatatypeProperty ;
+                           rdfs:comment "Requirements for taking the Course. May be completion of another Course or a textual description like 'permission of instructor'. Requirements may be a pre-requisite competency, referenced using AlignmentObject" ;
+                           rdfs:isDefinedBy "http://schema.org/" ;
+                           rdfs:label "coursePrerequisites" .
+
+
+###  http://schema.org/duration
+schema:duration rdf:type owl:DatatypeProperty ;
+                rdfs:comment "duration of the content by shema" ;
+                rdfs:isDefinedBy "http://schema.org/" ;
+                rdfs:label "duration" .
+
+
+###  http://schema.org/educationalLevel
+schema:educationalLevel rdf:type owl:DatatypeProperty ;
+                        rdfs:domain schema:EducationalAudience ;
+                        rdfs:range xsd:string ;
+                        rdfs:comment "The level of education or prerequisite knowledge required or targeted by the content (e.g., 'Grade 10', 'Intermediate', 'Post-Graduate')." ;
+                        rdfs:isDefinedBy "http://schema.org/" ;
+                        rdfs:label "educationalLevel" .
+
+
+###  http://schema.org/educationalRole
+schema:educationalRole rdf:type owl:DatatypeProperty ;
+                       rdfs:domain schema:EducationalAudience ;
+                       rdfs:range xsd:string ;
+                       rdfs:comment "The role (e.g., student, teacher) the target audience plays in an educational context." ;
+                       rdfs:isDefinedBy "http://schema.org/educationalRole" ;
+                       rdfs:label "educationalRole" .
+
+
+###  http://schema.org/learningResourceType
+schema:learningResourceType rdf:type owl:DatatypeProperty ;
+                            rdfs:domain :microlearning ;
+                            rdfs:range :LearningResourceTypeEnum ;
+                            rdfs:comment "the predominant type or kind characterizing the learning resource." ;
+                            rdfs:isDefinedBy "http://schema.org/" ;
+                            rdfs:label "learningResourceType" .
+
+
+###  http://schema.org/position
+schema:position rdf:type owl:DatatypeProperty ;
+                rdfs:domain :microlearning ;
+                rdfs:range xsd:integer ;
+                rdfs:comment "hold the series number of the micolearining" ;
+                rdfs:isDefinedBy "http://schema.org/" ;
+                rdfs:label "position" .
+
+
+###  http://schema.org/proficiencyLevel
+schema:proficiencyLevel rdf:type owl:DatatypeProperty ;
+                        rdfs:domain schema:EducationalAudience ;
+                        rdfs:range xsd:string ;
+                        rdfs:comment "The required or targeted competency level of the audience (e.g., 'B2', 'Expert', 'Novice')." ;
+                        rdfs:isDefinedBy "http://schema.org/" ;
+                        rdfs:label "proficiencyLevel" .
+
+
+###  http://schema.org/wordCount
+schema:wordCount rdf:type owl:DatatypeProperty ;
+                 rdfs:comment "to represent the number of words by schema" ;
+                 rdfs:isDefinedBy "http://schema.org/" ;
+                 rdfs:label "wordCount" .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://courseware.rkbexplorer.com/ontologies/courseware#Assessment-Method
+courseware:Assessment-Method rdf:type owl:Class ;
+                             rdfs:comment "A method by which a learner is assessed; instances of this class may include examination, coursework, etc." ;
+                             rdfs:isDefinedBy "http://courseware.rkbexplorer.com/ontologies/courseware" ;
+                             rdfs:label "Assessment-Method" .
+
+
+###  http://courseware.rkbexplorer.com/ontologies/courseware#LearningObject
+courseware:LearningObject rdf:type owl:Class ;
+                          rdfs:comment "Any entity, digital or non-digital, that may be used for learning, education or training." ;
+                          rdfs:isDefinedBy "http://courseware.rkbexplorer.com/ontologies/courseware" ;
+                          rdfs:label "LearningObject" .
+
+
+###  http://courseware.rkbexplorer.com/ontologies/courseware#Student-Interaction-Type
+courseware:Student-Interaction-Type rdf:type owl:Class ;
+                                    rdfs:comment "A type of interaction in which a learner engages whilst undertaking a micolearning." ;
+                                    rdfs:isDefinedBy "http://courseware.rkbexplorer.com/ontologies/courseware" ;
+                                    rdfs:label "Student-Interaction-Type" .
+
+
+###  http://data.europa.eu/esco/model#LearningOutcome
+esco:LearningOutcome rdf:type owl:Class ;
+                     rdfs:isDefinedBy "Statements regarding what a learner knows, understands and is able to do on completion of a learning process, which are defined in terms of knowledge, skills and responsibility and autonomy" ,
+                                      "http://data.europa.eu/esco" ;
+                     rdfs:label "LearningOutcome" .
+
+
+###  http://data.europa.eu/esco/model#Occupation
+esco:Occupation rdf:type owl:Class ;
+                rdfs:comment "The class of ESCO Occupation concepts..." ;
+                rdfs:isDefinedBy "http://data.europa.eu/esco/" ;
+                rdfs:label "Occupation" .
+
+
+###  http://data.europa.eu/esco/model#Skill
+esco:Skill rdf:type owl:Class ;
+           rdfs:comment "The class of ESCO Skill concepts...." ;
+           rdfs:isDefinedBy "http://data.europa.eu/esco/" ;
+           rdfs:label "Skill" .
+
+
+###  http://linkedscience.org/teach/ns#Material
+ls:Material rdf:type owl:Class ;
+            rdfs:comment "to add any other related material." ;
+            rdfs:isDefinedBy "http://linkedscience.org/teach/" ;
+            rdfs:label "Material" .
+
+
+###  http://linkedscience.org/teach/ns#StudyProgram
+ls:StudyProgram rdf:type owl:Class ;
+                owl:equivalentClass aiiso:Programme ;
+                rdfs:comment "A Programme is a KnowledgeGrouping that represents a cohesive collection of educational material referred to by the owning organization as a programme." ;
+                rdfs:isDefinedBy "http://linkedscience.org/teach/" ;
+                rdfs:label "StudyProgram" .
+
+
+###  http://microlearning-model.edu/microlearning-model/CitySector
+:CitySector rdf:type owl:Class ;
+            owl:equivalentClass km4c:Service ;
+            rdfs:comment "A local alias for the external km4c:Service class, used for clarity to denote the general Smart City Sector concept." ;
+            rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+            rdfs:label "CitySector" .
+
+
+###  http://microlearning-model.edu/microlearning-model/Creator
+:Creator rdf:type owl:Class ;
+         rdfs:subClassOf foaf:Agent ;
+         rdfs:comment "It represents who created the microlearning. It could be an educational institution, a company, a person, or others." ;
+         rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+         rdfs:label "Creator" .
+
+
+###  http://microlearning-model.edu/microlearning-model/DifficultyLevel
+:DifficultyLevel rdf:type owl:Class ;
+                 rdfs:comment "to represent the difficulty level of the micorlearning." ;
+                 rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+                 rdfs:label "DifficultyLevel" .
+
+
+###  http://microlearning-model.edu/microlearning-model/FlashCardMicrolearning
+:FlashCardMicrolearning rdf:type owl:Class ;
+                        rdfs:subClassOf :microlearning ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty schema:learningResourceType ;
+                                          owl:hasValue "Flash card"
+                                        ] ;
+                        rdfs:comment "A microlearning module specifically designed for rapid recall, repetition, and mastery using flash card mechanics." ;
+                        rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+                        rdfs:label "Flash Card Microlearning" .
+
+
+###  http://microlearning-model.edu/microlearning-model/LearningModeEnum
+:LearningModeEnum rdf:type owl:Class ;
+                  owl:equivalentClass [ rdf:type owl:Class ;
+                                        owl:oneOf ( schema:Blended
+                                                    schema:FaceToFace
+                                                    schema:Online
+                                                  )
+                                      ] ;
+                  rdfs:comment "An enumeration class representing the allowed modes for microlearning delivery (Online, Blended, FaceToFace)." ;
+                  rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+                  rdfs:label "LearningModeEnum" .
+
+
+###  http://microlearning-model.edu/microlearning-model/LearningStyle
+:LearningStyle rdf:type owl:Class ;
+               rdfs:comment "A classification of the preferred ways an audience acquires and processes information (e.g., VARK categories)." ;
+               rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+               rdfs:label "LearningStyle" .
+
+
+###  http://microlearning-model.edu/microlearning-model/MicrolearningSeries
+:MicrolearningSeries rdf:type owl:Class ;
+                     rdfs:subClassOf schema:CreativeWorkSeries ;
+                     rdfs:comment "A cohesive collection of microlearning modules intended to be consumed sequentially or as a logical group, representing a 'Series' or 'Library'." ;
+                     rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+                     rdfs:label "MicrolearningSeries" .
+
+
+###  http://microlearning-model.edu/microlearning-model/MobileDevice
+:MobileDevice rdf:type owl:Class ;
+              rdfs:subClassOf aktors:Technology ;
+              rdfs:comment "A specialized class of Technology for portable handheld devices (e.g., smartphones, tablets). This class is used to explicitly mark microlearning instances as mobile-first, providing emphasis without creating a mandatory restriction on the parent :microlearning class." ;
+              rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+              rdfs:label "MobileDevice" .
+
+
+###  http://microlearning-model.edu/microlearning-model/MultisensoryResource
+:MultisensoryResource rdf:type owl:Class ;
+                      rdfs:subClassOf :microlearning ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty :multisensoryResource ;
+                                        owl:hasValue "true"^^xsd:boolean
+                                      ] ;
+                      rdfs:comment "A class representing microlearning modules that actively use multiple sensory inputs (e.g., visual and auditory) for enhanced learning, aligning with best practices." ;
+                      rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+                      rdfs:label "Multisensory Resource" .
+
+
+###  http://microlearning-model.edu/microlearning-model/Objective
+:Objective rdf:type owl:Class ;
+           rdfs:subClassOf esco:LearningOutcome ;
+           rdfs:comment "objective must be singular, specific, action-Oriented (use action verb), measurable, state what the learner will be able to do after the completion of this microlearning, task-Centricity (real-world task or competency),  can be achieved in short time limit." ;
+           rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+           rdfs:label "Objective" .
+
+
+###  http://microlearning-model.edu/microlearning-model/StandaloneMicrolearning
+:StandaloneMicrolearning rdf:type owl:Class ;
+                         owl:equivalentClass [ rdf:type owl:Restriction ;
+                                               owl:onProperty :isModuleOfSeries ;
+                                               owl:maxQualifiedCardinality "0"^^xsd:nonNegativeInteger ;
+                                               owl:onClass :MicrolearningSeries
+                                             ] ,
+                                             [ rdf:type owl:Restriction ;
+                                               owl:onProperty :textPrerequisites ;
+                                               owl:maxQualifiedCardinality "0"^^xsd:nonNegativeInteger ;
+                                               owl:onDataRange xsd:string
+                                             ] ,
+                                             [ rdf:type owl:Restriction ;
+                                               owl:onProperty :uriPrerequisites ;
+                                               owl:maxQualifiedCardinality "0"^^xsd:nonNegativeInteger ;
+                                               owl:onDataRange xsd:anyURI
+                                             ] ,
+                                             [ rdf:type owl:Restriction ;
+                                               owl:onProperty schema:position ;
+                                               owl:maxQualifiedCardinality "0"^^xsd:nonNegativeInteger ;
+                                               owl:onDataRange xsd:int
+                                             ] ;
+                         rdfs:subClassOf :microlearning ;
+                         rdfs:comment "representing the self-contained and standalone concepts on this microlearning." ;
+                         rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+                         rdfs:label "StandaloneMicrolearning" .
+
+
+###  http://microlearning-model.edu/microlearning-model/VideoMicrolearning
+:VideoMicrolearning rdf:type owl:Class ;
+                    rdfs:subClassOf :microlearning ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty schema:learningResourceType ;
+                                      owl:hasValue "Video recording"
+                                    ] ;
+                    rdfs:comment "A microlearning module delivered as a short, focused video, often preferred for its ease of consumption and visual nature." ;
+                    rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+                    rdfs:label "Video Microlearning" .
+
+
+###  http://microlearning-model.edu/microlearning-model/VisualMicrolearning
+:VisualMicrolearning rdf:type owl:Class ;
+                     rdfs:subClassOf :microlearning ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty :hasVisualElements ;
+                                       owl:hasValue "true"^^xsd:boolean
+                                     ] ;
+                     rdfs:comment "A microlearning module where the primary mode is highly visual content like infographics, charts, or diagrams, which is highly effective." ;
+                     rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+                     rdfs:label "Visual Microlearning" .
+
+
+###  http://microlearning-model.edu/microlearning-model/microlearning
+:microlearning rdf:type owl:Class ;
+               rdfs:subClassOf courseware:LearningObject ,
+                               schema:CreativeWork ,
+                               skos:Concept ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :hasObjective ;
+                                 owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass :Objective
+                               ] ;
+               rdfs:comment "microlearning is an instructional approach that delivers targeted, action-oriented, bite-sized content to achieve specific objectives within a short period, typically within a few seconds or minutes." ;
+               rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+               rdfs:label "Microlearning" .
+
+
+###  http://ontogamif.org/ontology/core#Achievement
+ontog:Achievement rdf:type owl:Class ;
+                  rdfs:subClassOf ontog:GameDynamic .
+
+
+###  http://ontogamif.org/ontology/core#Badge
+ontog:Badge rdf:type owl:Class ;
+            rdfs:subClassOf ontog:GameDesignElement .
+
+
+###  http://ontogamif.org/ontology/core#Challenge
+ontog:Challenge rdf:type owl:Class ;
+                rdfs:subClassOf ontog:GameDynamic ;
+                rdfs:comment "A task or goal that requires effort and skill to overcome, often providing a sense of accomplishment." ;
+                rdfs:isDefinedBy "http://ontogamif.org/" ;
+                rdfs:label "Challenge" .
+
+
+###  http://ontogamif.org/ontology/core#Community
+ontog:Community rdf:type owl:Class ;
+                rdfs:subClassOf ontog:GameDynamic ;
+                rdfs:comment "The feeling of belonging, cooperation, and shared experience with other learners; driven by Cooperative mechanics." ;
+                rdfs:isDefinedBy "http://ontogamif.org/" ;
+                rdfs:label "Community" .
+
+
+###  http://ontogamif.org/ontology/core#Competition
+ontog:Competition rdf:type owl:Class ;
+                  rdfs:subClassOf ontog:GameMechanic ;
+                  rdfs:comment "A rule that pits individuals or groups against each other, often using Leaderboards or Points, to motivate performance." ;
+                  rdfs:isDefinedBy "http://ontogamif.org/" ;
+                  rdfs:label "Competition" .
+
+
+###  http://ontogamif.org/ontology/core#Cooperation
+ontog:Cooperation rdf:type owl:Class ;
+                  rdfs:subClassOf ontog:GameMechanic ;
+                  rdfs:comment "A rule that requires individuals or groups to work together toward a shared goal." ;
+                  rdfs:isDefinedBy "http://ontogamif.org/" ;
+                  rdfs:label "Cooperation" .
+
+
+###  http://ontogamif.org/ontology/core#FeedbackLoop
+ontog:FeedbackLoop rdf:type owl:Class ;
+                   rdfs:subClassOf ontog:GameMechanic ;
+                   rdfs:comment "The core process of providing users with information about their actions, triggering motivation to continue or change behavior." ;
+                   rdfs:isDefinedBy "http://ontogamif.org/" ;
+                   rdfs:label "FeedbackLoop" .
+
+
+###  http://ontogamif.org/ontology/core#GameDesignElement
+ontog:GameDesignElement rdf:type owl:Class ;
+                        rdfs:comment "Represents the tangible, user-facing components of a gamified system. These are the \"things\" the learner sees and interacts with (the 'what')." ;
+                        rdfs:isDefinedBy "http://ontogamif.org/" ;
+                        rdfs:label "GameDesignElement" .
+
+
+###  http://ontogamif.org/ontology/core#GameDynamic
+ontog:GameDynamic rdf:type owl:Class ;
+                  rdfs:comment "The top-level class representing the abstract motivational and psychological outcomes (dynamics) resulting from gamification mechanics and elements (The 'Why')." ;
+                  rdfs:isDefinedBy "http://ontogamif.org/" ;
+                  rdfs:label "GameDynamic" .
+
+
+###  http://ontogamif.org/ontology/core#GameMechanic
+ontog:GameMechanic rdf:type owl:Class ;
+                   rdfs:comment "The top-level class representing the abstract rules or processes (mechanics) that drive engagement, such as Feedback Loops, Competition, or Cooperation (The 'How')." ;
+                   rdfs:isDefinedBy "http://ontogamif.org/" ;
+                   rdfs:label "GameMechanic" .
+
+
+###  http://ontogamif.org/ontology/core#GamificationSystem
+ontog:GamificationSystem rdf:type owl:Class ;
+                         rdfs:comment "The conceptual entity that encompasses all gamification elements, mechanics, and users for a specific context." ;
+                         rdfs:isDefinedBy "http://ontogamif.org/" ;
+                         rdfs:label "GamificationSystem" .
+
+
+###  http://ontogamif.org/ontology/core#Leaderboard
+ontog:Leaderboard rdf:type owl:Class ;
+                  rdfs:subClassOf ontog:GameDesignElement ;
+                  rdfs:comment "A ranking system that compares players based on a metric, typically points, to encourage competition." ;
+                  rdfs:isDefinedBy "http://ontogamif.org/" ;
+                  rdfs:label "Leaderboard" .
+
+
+###  http://ontogamif.org/ontology/core#Level
+ontog:Level rdf:type owl:Class ;
+            rdfs:subClassOf ontog:GameDesignElement ;
+            rdfs:comment "A stage of progression that represents an increase in difficulty, status, or access to new content." ;
+            rdfs:isDefinedBy "http://ontogamif.org/" ;
+            rdfs:label "Level" .
+
+
+###  http://ontogamif.org/ontology/core#Point
+ontog:Point rdf:type owl:Class ;
+            rdfs:subClassOf ontog:GameDesignElement ;
+            rdfs:comment "A numerical value that a player can accumulate for completing actions or achieving goals." ;
+            rdfs:isDefinedBy "http://ontogamif.org/" ;
+            rdfs:label "Point" .
+
+
+###  http://ontogamif.org/ontology/core#ProgressBar
+ontog:ProgressBar rdf:type owl:Class ;
+                  rdfs:subClassOf ontog:GameDesignElement ;
+                  rdfs:comment "A visual indication of a user's completion status within a task, module, or goal." ;
+                  rdfs:isDefinedBy "http://ontogamif.org" ;
+                  rdfs:label "ProgressBar" .
+
+
+###  http://ontogamif.org/ontology/core#Progression
+ontog:Progression rdf:type owl:Class ;
+                  rdfs:subClassOf ontog:GameDynamic ;
+                  rdfs:comment "The feeling of forward movement, growth, and mastery over time; driven by Levels and Progress Bars." ;
+                  rdfs:isDefinedBy "http://ontogamif.org/" ;
+                  rdfs:label "Progression" .
+
+
+###  http://ontogamif.org/ontology/core#Quest
+ontog:Quest rdf:type owl:Class ;
+            rdfs:subClassOf ontog:GameDesignElement ;
+            rdfs:comment "A structured sequence of tasks, goals, or microlearning modules that a user follows to achieve a larger objective." ;
+            rdfs:isDefinedBy "http://ontogamif.org/" ;
+            rdfs:label "Quest" .
+
+
+###  http://ontogamif.org/ontology/core#ResourceAcquisition
+ontog:ResourceAcquisition rdf:type owl:Class ;
+                          rdfs:subClassOf ontog:GameDynamic ;
+                          rdfs:comment "The desire to gather, manage, and use virtual goods or assets to advance or customize." ;
+                          rdfs:isDefinedBy "http://ontogamif.org/" ;
+                          rdfs:label "ResourceAcquisition" .
+
+
+###  http://ontogamif.org/ontology/core#Status
+ontog:Status rdf:type owl:Class ;
+             rdfs:subClassOf ontog:GameDynamic ;
+             rdfs:comment "The desire for recognition, ranking, or social standing; often driven by Leaderboards and Points." ;
+             rdfs:isDefinedBy "http://ontogamif.org/" ;
+             rdfs:label "Status" .
+
+
+###  http://ontogamif.org/ontology/core#SurpriseDiscovery
+ontog:SurpriseDiscovery rdf:type owl:Class ;
+                        rdfs:subClassOf ontog:GameDynamic ;
+                        rdfs:comment "The enjoyment derived from unexpected rewards, hidden content, or emergent gameplay." ;
+                        rdfs:isDefinedBy "http://ontogamif.org/" ;
+                        rdfs:label "SurpriseDiscovery" .
+
+
+###  http://ontogamif.org/ontology/core#UnlockableContent
+ontog:UnlockableContent rdf:type owl:Class ;
+                        rdfs:subClassOf ontog:GameDesignElement ;
+                        rdfs:comment "Content, features, or materials that are hidden until a learner achieves a specific target or completes a prerequisite." ;
+                        rdfs:isDefinedBy "http://ontogamif.org/" ;
+                        rdfs:label "UnlockableContent" .
+
+
+###  http://ontogamif.org/ontology/core#VirtualGood
+ontog:VirtualGood rdf:type owl:Class ;
+                  rdfs:subClassOf ontog:GameDesignElement ;
+                  rdfs:comment "Digital items or assets (e.g., currency, decorations) that have value only within the system, used for customization or status." ;
+                  rdfs:isDefinedBy "http://ontogamif.org/" ;
+                  rdfs:label "VirtualGood" .
+
+
+###  http://purl.org/locwd/schema#OCW
+<http://purl.org/locwd/schema#OCW> rdf:type owl:Class ;
+                                   rdfs:subClassOf ls:Material ;
+                                   rdfs:comment "An OCW is a free and open digital publication of high quality educational materials, organized as courses. An OCW is available for use and adaptation under an open license, such as a Creative Commons license. Does not typically provide certification or access to faculty." ;
+                                   rdfs:isDefinedBy "http://purl.org/locwd/" ;
+                                   rdfs:label "OCW" .
+
+
+###  http://purl.org/locwd/schema#OER
+<http://purl.org/locwd/schema#OER> rdf:type owl:Class ;
+                                   rdfs:subClassOf ls:Material ;
+                                   rdfs:comment "OER are teaching, learning, and research resources that reside in the public domain or have been released under an intellectual property license that permits their free use or re-purposing by others. OER include full courses, course materials, modules, textbooks, streaming videos, tests, software, and any other tools, materials, or techniques used to support access to knowledge." ;
+                                   rdfs:isDefinedBy "http://purl.org/locwd/" ;
+                                   rdfs:label "OER" .
+
+
+###  http://purl.org/vocab/aiiso/schema#Module
+aiiso:Module rdf:type owl:Class ;
+             rdfs:subClassOf ls:Material ;
+             rdfs:comment "A Module is a KnowledgeGrouping that represents a cohesive collection of educational material referred to by the owning organization as a module." ;
+             rdfs:isDefinedBy "http://purl.org/vocab/aiiso/" ;
+             rdfs:label "Module" .
+
+
+###  http://purl.org/vocab/aiiso/schema#Programme
+aiiso:Programme rdf:type owl:Class ;
+                rdfs:comment "A Programme is a KnowledgeGrouping that represents a cohesive collection of educational material referred to by the owning organization as a programme." ;
+                rdfs:isDefinedBy "http://purl.org/vocab/aiiso/" ;
+                rdfs:label "Programme" .
+
+
+###  http://purl.org/vocab/aiiso/schema#Subject
+aiiso:Subject rdf:type owl:Class ;
+              rdfs:comment "A Subject is a KnowledgeGrouping that represents a cohesive collection of educational material referred to by the owning organization as a subject." ;
+              rdfs:isDefinedBy "http://purl.org/vocab/aiiso/" ;
+              rdfs:label "Subject" .
+
+
+###  http://schema.org/Audience
+schema:Audience rdf:type owl:Class ;
+                rdfs:comment "An intended audience, i.e. a group for whom something was created." ;
+                rdfs:isDefinedBy "http://schema.org/" ;
+                rdfs:label "Audience" .
+
+
+###  http://schema.org/CreativeWork
+schema:CreativeWork rdf:type owl:Class ;
+                    rdfs:comment "The most generic kind of creative content or creative work, including books, movies, photographs, software programs, etc." ;
+                    rdfs:isDefinedBy "http://schema.org/" ;
+                    rdfs:label "CreativeWork" .
+
+
+###  http://schema.org/CreativeWorkSeries
+schema:CreativeWorkSeries rdf:type owl:Class ;
+                          rdfs:comment "A CreativeWorkSeries is a [[CreativeWork]] that is part of a series (e.g., a book series, a TV or radio series). The difference between a Series and a [[CreativeWork]] is the same as the difference between a set and an element." ;
+                          rdfs:isDefinedBy "http://schema.org/" ;
+                          rdfs:label "CreativeWorkSeries" .
+
+
+###  http://schema.org/Demand
+schema:Demand rdf:type owl:Class ;
+              rdfs:comment "A demand entity represents a request for a certain commodity or service, or a need or interest in a certain offering." ;
+              rdfs:isDefinedBy "http://schema.org/" ;
+              rdfs:label "Demand" .
+
+
+###  http://schema.org/EducationalAudience
+schema:EducationalAudience rdf:type owl:Class ;
+                           rdfs:subClassOf schema:Audience ;
+                           rdfs:comment "An audience that is defined by an educational role" ;
+                           rdfs:isDefinedBy "http://schema.org/" ;
+                           rdfs:label "EducationalAudience" .
+
+
+###  http://www.aktors.org/ontology/portal#Technology
+aktors:Technology rdf:type owl:Class ;
+                  rdfs:comment "Represents the technologies are needed to engage in this microlearning such as mobile, tablets and so on." ;
+                  rdfs:isDefinedBy "http://www.aktors.org/" ;
+                  rdfs:label "Technology" .
+
+
+###  http://www.disit.org/km4city/schema#Accommodation
+km4c:Accommodation rdf:type owl:Class ;
+                   rdfs:subClassOf km4c:Service ;
+                   rdfs:comment "A formal subclass of km4c:Service representing lodging, hotels, hostels, and residential services (Accommodation)." ;
+                   rdfs:label "Accommodation" .
+
+
+###  http://www.disit.org/km4city/schema#CulturalSite
+km4c:CulturalSite rdf:type owl:Class ;
+                  rdfs:subClassOf km4c:Service ;
+                  rdfs:comment "A formal subclass of km4c:Service representing museums, theaters, historical sites, and cultural venues (Cultural Site)." ;
+                  rdfs:label "Cultural Site" .
+
+
+###  http://www.disit.org/km4city/schema#Education
+km4c:Education rdf:type owl:Class ;
+               rdfs:subClassOf km4c:Service ;
+               rdfs:comment "A formal subclass of km4c:Service representing resources and services related to educational activities and facilities (Education)." ;
+               rdfs:label "Education" .
+
+
+###  http://www.disit.org/km4city/schema#HealthCare
+km4c:HealthCare rdf:type owl:Class ;
+                rdfs:subClassOf km4c:Service ;
+                rdfs:comment "A formal subclass of km4c:Service representing hospitals, clinics, pharmacies, and medical centers (Health Care)." ;
+                rdfs:label "Health Care" .
+
+
+###  http://www.disit.org/km4city/schema#Public_administration
+km4c:Public_administration rdf:type owl:Class ;
+                           rdfs:subClassOf km4c:Service ;
+                           rdfs:comment "A formal subclass of km4c:Service representing city halls, government offices, and administrative centers (Public Administration)." ;
+                           rdfs:label "Public Administration" .
+
+
+###  http://www.disit.org/km4city/schema#Restaurant
+km4c:Restaurant rdf:type owl:Class ;
+                rdfs:subClassOf km4c:Service ;
+                rdfs:comment "A formal subclass of km4c:Service representing food services, cafes, bars, and dining establishments (Restaurant)." ;
+                rdfs:label "Restaurant" .
+
+
+###  http://www.disit.org/km4city/schema#Service
+km4c:Service rdf:type owl:Class ;
+             rdfs:comment "resource representing an activity, facility, or point of interest within a smart city that provides value or utility to citizens, students, commuters, tourists, or other city users, and which may be reachable or geolocated." ;
+             rdfs:isDefinedBy "http://www.disit.org/km4city/schema" ;
+             rdfs:label "Service" .
+
+
+###  http://www.disit.org/km4city/schema#Shop
+km4c:Shop rdf:type owl:Class ;
+          rdfs:subClassOf km4c:Service ;
+          rdfs:comment "A formal subclass of km4c:Service representing retail stores and commercial activities (Shop)." ;
+          rdfs:label "Shop" .
+
+
+###  http://www.disit.org/km4city/schema#Sports_facility
+km4c:Sports_facility rdf:type owl:Class ;
+                     rdfs:subClassOf km4c:Service ;
+                     rdfs:comment "A formal subclass of km4c:Service representing gyms, stadiums, public pools, and recreational areas (Sports Facility)." ;
+                     rdfs:label "Sports Facility" .
+
+
+###  http://www.disit.org/km4city/schema#TransferServiceAndRenting
+km4c:TransferServiceAndRenting rdf:type owl:Class ;
+                               rdfs:subClassOf km4c:Service ;
+                               rdfs:comment "A formal subclass of km4c:Service representing mobility services like bike/car sharing, taxi services, and rentals (Transfer Service And Renting)." ;
+                               rdfs:label "Transfer Service And Renting" .
+
+
+###  http://www.w3.org/2004/02/skos/core#Concept
+skos:Concept rdf:type owl:Class ;
+             rdfs:comment "the class of concept by skos" ;
+             rdfs:isDefinedBy "http://www.w3.org/2004/02/skos/core" ;
+             rdfs:label "Concept" .
+
+
+###  http://xmlns.com/foaf/0.1/Agent
+foaf:Agent rdf:type owl:Class ;
+           rdfs:comment "the class of agents, e.g. person, group, software, or organization." ;
+           rdfs:isDefinedBy "http://xmlns.com/foaf/" ;
+           rdfs:label "Agent" .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://data.europa.eu/esco/node/skill_iot_maintenance_4421
+<http://data.europa.eu/esco/node/skill_iot_maintenance_4421> rdf:type owl:NamedIndividual .
+
+
+###  http://data.europa.eu/esco/node/skill_solar_energy_concepts
+<http://data.europa.eu/esco/node/skill_solar_energy_concepts> rdf:type owl:NamedIndividual .
+
+
+###  http://microlearning-model.edu/microlearning-model/AuditoryLearner
+:AuditoryLearner rdf:type owl:NamedIndividual ,
+                          :LearningStyle ;
+                 rdfs:comment "Prefers listening to information, lectures, and discussions (VARK)." ;
+                 rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+                 rdfs:label "AuditoryLearner" .
+
+
+###  http://microlearning-model.edu/microlearning-model/Easy
+:Easy rdf:type owl:NamedIndividual .
+
+
+###  http://microlearning-model.edu/microlearning-model/GreenMobilityShort
+:GreenMobilityShort rdf:type owl:NamedIndividual ,
+                             :microlearning ;
+                    :hasDifficultyLevel :Easy ;
+                    :hasRelatedCitySector <http://www.disit.org/km4city/resource/Transport> ;
+                    :durationInMinutes 5 ;
+                    :wordCount 150 ;
+                    dc:title "Electric Vehicle Charging Basics" .
+
+
+###  http://microlearning-model.edu/microlearning-model/Hard
+:Hard rdf:type owl:NamedIndividual .
+
+
+###  http://microlearning-model.edu/microlearning-model/IoTMaintenanceUnit
+:IoTMaintenanceUnit rdf:type owl:NamedIndividual ,
+                             :microlearning ;
+                    :hasDifficultyLevel :Hard ;
+                    :hasRelatedCitySector <http://www.disit.org/km4city/resource/Infrastructure> ;
+                    :hasSkill <http://data.europa.eu/esco/node/skill_iot_maintenance_4421> ;
+                    :durationInMinutes 14 ;
+                    :wordCount 480 ;
+                    dc:title "Advanced IoT Sensor Maintenance" .
+
+
+###  http://microlearning-model.edu/microlearning-model/KinestheticLearner
+:KinestheticLearner rdf:type owl:NamedIndividual ,
+                             :LearningStyle ;
+                    rdfs:comment "Prefers hands-on experiences, practice, moving, and doing (VARK)." ;
+                    rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+                    rdfs:label "KinestheticLearner" .
+
+
+###  http://microlearning-model.edu/microlearning-model/Medium
+:Medium rdf:type owl:NamedIndividual .
+
+
+###  http://microlearning-model.edu/microlearning-model/ReadWriteLearner
+:ReadWriteLearner rdf:type owl:NamedIndividual ,
+                           :LearningStyle ;
+                  rdfs:comment "Prefers text, reading documents, taking notes, and lists (VARK)." ;
+                  rdfs:isDefinedBy "ReadWriteLearner" ,
+                                   "http://microlearning-model.edu/microlearning-model" .
+
+
+###  http://microlearning-model.edu/microlearning-model/SolarEnergyIntro
+:SolarEnergyIntro rdf:type owl:NamedIndividual ,
+                           :microlearning ;
+                  :hasDifficultyLevel :Easy ;
+                  :hasRelatedCitySector <http://www.disit.org/km4city/resource/Energy> ;
+                  :hasSkill <http://data.europa.eu/esco/node/skill_solar_energy_concepts> ;
+                  :durationInMinutes 12 ;
+                  :wordCount 350 ;
+                  dc:title "Introduction to Solar Energy in Smart Cities" .
+
+
+###  http://microlearning-model.edu/microlearning-model/TooLongLecture
+:TooLongLecture rdf:type owl:NamedIndividual ,
+                         :microlearning ;
+                :hasDifficultyLevel :Medium ;
+                :durationInMinutes 45 ;
+                :wordCount 1200 ;
+                dc:title "Full Length Urban Planning Seminar" .
+
+
+###  http://microlearning-model.edu/microlearning-model/VisualLearner
+:VisualLearner rdf:type owl:NamedIndividual ,
+                        :LearningStyle ;
+               rdfs:comment "Prefers seeing diagrams, charts, infographics, and spatial organization (VARK)." ;
+               rdfs:isDefinedBy "http://microlearning-model.edu/microlearning-model" ;
+               rdfs:label "VisualLearner" .
+
+
+###  http://purl.org/net/LOM/educational.difficulty/difficult
+<http://purl.org/net/LOM/educational.difficulty/difficult> rdf:type owl:NamedIndividual ,
+                                                                    :DifficultyLevel ;
+                                                           rdfs:comment "Requires substantial prior knowledge, concentration, and effort." ;
+                                                           rdfs:isDefinedBy "http://purl.org/net/LOM/educational.difficulty/" ;
+                                                           rdfs:label "difficult" .
+
+
+###  http://purl.org/net/LOM/educational.difficulty/easy
+<http://purl.org/net/LOM/educational.difficulty/easy> rdf:type owl:NamedIndividual ,
+                                                               :DifficultyLevel ;
+                                                      rdfs:comment "Simple to understand with basic foundational knowledge." ;
+                                                      rdfs:isDefinedBy "http://purl.org/net/LOM/educational.difficulty/" ;
+                                                      rdfs:label "easy" .
+
+
+###  http://purl.org/net/LOM/educational.difficulty/medium
+<http://purl.org/net/LOM/educational.difficulty/medium> rdf:type owl:NamedIndividual ,
+                                                                 :DifficultyLevel ;
+                                                        rdfs:comment "Requires a moderate degree of prior knowledge and some effort." ;
+                                                        rdfs:isDefinedBy "http://purl.org/net/LOM/educational.difficulty/" ;
+                                                        rdfs:label "medium" .
+
+
+###  http://purl.org/net/LOM/educational.difficulty/very_difficult
+<http://purl.org/net/LOM/educational.difficulty/very_difficult> rdf:type owl:NamedIndividual ,
+                                                                         :DifficultyLevel ;
+                                                                rdfs:comment "Requires expert knowledge and significant cognitive load." ;
+                                                                rdfs:isDefinedBy "http://purl.org/net/LOM/educational.difficulty/" ;
+                                                                rdfs:label "very difficult" .
+
+
+###  http://purl.org/net/LOM/educational.difficulty/very_easy
+<http://purl.org/net/LOM/educational.difficulty/very_easy> rdf:type owl:NamedIndividual ,
+                                                                    :DifficultyLevel ;
+                                                           rdfs:comment "Requires minimal prior knowledge or effort." ;
+                                                           rdfs:isDefinedBy "http://purl.org/net/LOM/educational.difficulty/" ;
+                                                           rdfs:label "very easy" .
+
+
+###  http://schema.org/Blended
+schema:Blended rdf:type owl:NamedIndividual ,
+                        :LearningModeEnum .
+
+
+###  http://schema.org/FaceToFace
+schema:FaceToFace rdf:type owl:NamedIndividual ,
+                           :LearningModeEnum .
+
+
+###  http://schema.org/Online
+schema:Online rdf:type owl:NamedIndividual ,
+                       :LearningModeEnum .
+
+
+###  http://www.disit.org/km4city/resource/Energy
+<http://www.disit.org/km4city/resource/Energy> rdf:type owl:NamedIndividual .
+
+
+###  http://www.disit.org/km4city/resource/Infrastructure
+<http://www.disit.org/km4city/resource/Infrastructure> rdf:type owl:NamedIndividual .
+
+
+###  http://www.disit.org/km4city/resource/Transport
+<http://www.disit.org/km4city/resource/Transport> rdf:type owl:NamedIndividual .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
